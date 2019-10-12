@@ -25,7 +25,7 @@
                <children>
                   <Label text="Partita" />
                   <Button mnemonicParsing="false" onAction="#handleNuovaPartita" text="Nuova" />
-                  <Label text="Rimasti">
+                  <Label prefHeight="17.0" prefWidth="76.0" text="tentativiFatti">
                      <HBox.margin>
                         <Insets left="50.0" />
                      </HBox.margin>

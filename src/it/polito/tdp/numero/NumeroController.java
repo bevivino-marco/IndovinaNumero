@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import it.polito.tdp.numero.model.NumeroModel;
+import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
@@ -48,7 +49,7 @@ public class NumeroController {
 		boxControlloTentativi.setDisable(false);
 		txtMessaggi.clear();
 		txtTentativo.clear();
-		txtRimasti.setText(Integer.toString(model.getTMAX()));
+		//txtRimasti.setText(Integer.toString(0));
 		model.newGame();
 
 	}
@@ -71,7 +72,7 @@ public class NumeroController {
 		}
 		
            if (!model.tentativoValido(tentativo)) {
-        	   txtMessaggi.appendText("range non valido");
+        	   txtMessaggi.appendText("numero non valido o gia usato");
         	   return;
            }
            int risultato = model.tentativo(tentativo);
@@ -91,7 +92,7 @@ public class NumeroController {
            }
 		
 		// Aggiornare interfaccia con n. tentativi rimasti
-		txtRimasti.setText(Integer.toString(model.getTMAX()-model.getTentativiFatti()));
+		//txtRimasti.setText(Integer.toString(model.getTentativiFatti()));
         if (!model.isInGioco()) {
         	if (risultato!=0) {
         		txtMessaggi.appendText("hai perso ! Il numero segreto era : "+model.getSegreto());
@@ -112,5 +113,6 @@ public class NumeroController {
 	}
 	public void setModel(NumeroModel model) {
 		this.model = model;
+		txtRimasti.textProperty().bind(Bindings.convert(model.tentativiFattiProperty()));
 	}
 }
