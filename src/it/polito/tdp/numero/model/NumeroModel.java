@@ -55,4 +55,17 @@ public class NumeroModel {
     	}
         return true;
     }
+	public int getSegreto() {
+		return segreto;
+	}
+	public int getTentativiFatti() {
+		return tentativiFatti;
+	}
+	public boolean isInGioco() {
+		return inGioco;
+	}
+	public int getTMAX() {
+		return TMAX;
+	}
+	
 }

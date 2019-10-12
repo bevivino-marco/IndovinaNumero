@@ -47,7 +47,9 @@ public class NumeroController {
 		boxControllopartita.setDisable(true);
 		boxControlloTentativi.setDisable(false);
 		txtMessaggi.clear();
-		txtRimasti.setText(Integer.toString(this.TMAX));
+		txtTentativo.clear();
+		txtRimasti.setText(Integer.toString(model.getTMAX()));
+		model.newGame();
 
 	}
 
@@ -68,43 +70,35 @@ public class NumeroController {
 			return ;
 		}
 		
-
-		tentativiFatti++ ;
+           if (!model.tentativoValido(tentativo)) {
+        	   txtMessaggi.appendText("range non valido");
+        	   return;
+           }
+           int risultato = model.tentativo(tentativo);
+           if (risultato == 0) {
+        	   txtMessaggi.appendText("Complimenti, hai indovinato in "+model.getTentativiFatti()+" tentativi\n");
+   			
+   			boxControllopartita.setDisable(false);
+   			boxControlloTentativi.setDisable(true);
+   			return ;
+        	   
+           }
+           if (risultato <0) {
+        	   txtMessaggi.appendText("Tentativo troppo BASSO\n");
+           }
+           else {
+        	   txtMessaggi.appendText("Tentativo troppo ALTO\n");
+           }
 		
-		// Controlla se ha indovinato
-		// -> fine partita
-		if(tentativo==segreto) {
-			txtMessaggi.appendText("Complimenti, hai indovinato in "+tentativiFatti+" tentativi\n");
-			
-			boxControllopartita.setDisable(false);
-			boxControlloTentativi.setDisable(true);
-			this.inGioco=false ;
-			return ;
-		}
-
-		// Verifica se ha esaurito i tentativi
-		// -> fine partita
-		if(tentativiFatti==TMAX) {
-			txtMessaggi.appendText("Hai PERSO, il numero segreto era: "+segreto+"\n");
-			
-			boxControllopartita.setDisable(false);
-			boxControlloTentativi.setDisable(true);
-			this.inGioco=false ;
-			return ;
-
-		}
-
-		// Informa se era troppo alto/troppo basso
-		// -> stampa messaggio
-		if(tentativo<segreto) {
-			txtMessaggi.appendText("Tentativo troppo BASSO\n");
-		} else {
-			txtMessaggi.appendText("Tentativo troppo ALTO\n");
-		}
-
 		// Aggiornare interfaccia con n. tentativi rimasti
-		txtRimasti.setText(Integer.toString(TMAX-tentativiFatti));
-
+		txtRimasti.setText(Integer.toString(model.getTMAX()-model.getTentativiFatti()));
+        if (!model.isInGioco()) {
+        	if (risultato!=0) {
+        		txtMessaggi.appendText("hai perso ! Il numero segreto era : "+model.getSegreto());
+        		boxControllopartita.setDisable(false);
+       			boxControlloTentativi.setDisable(true);
+        	}
+        }
 	}
 
 	@FXML
