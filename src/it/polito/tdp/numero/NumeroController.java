@@ -2,6 +2,8 @@ package it.polito.tdp.numero;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import it.polito.tdp.numero.model.NumeroModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
@@ -9,13 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 
 public class NumeroController {
-
-	private final int NMAX = 100;
-	private final int TMAX = 8;
-
-	private int segreto;
-	private int tentativiFatti;
-	private boolean inGioco = false;
+    private NumeroModel model;
 
 	@FXML
 	private ResourceBundle resources;
@@ -121,5 +117,8 @@ public class NumeroController {
 		assert txtTentativo != null : "fx:id=\"txtTentativo\" was not injected: check your FXML file 'Numero.fxml'.";
 		assert txtMessaggi != null : "fx:id=\"txtMessaggi\" was not injected: check your FXML file 'Numero.fxml'.";
 
+	}
+	public void setModel(NumeroModel model) {
+		this.model = model;
 	}
 }
