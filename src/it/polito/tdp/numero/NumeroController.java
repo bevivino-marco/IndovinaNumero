@@ -41,9 +41,7 @@ public class NumeroController {
 		// Gestisce l'inizio di una nuova partita
 
 		// Logica del gioco
-		this.segreto = (int) (Math.random() * NMAX) + 1;
-		this.tentativiFatti = 0;
-		this.inGioco = true;
+		
 
 		// Gestione dell'interfaccia
 		boxControllopartita.setDisable(true);
